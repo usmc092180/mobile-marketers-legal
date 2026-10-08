@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Diabolical Bastards Analytics | Mobile Marketers</title><style>body{font-family:system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 16px;line-height:1.5;color:#222}h1{font-size:1.6rem;margin-bottom:.2rem}.sub{color:#666;margin-top:0}button,.btn{background:#fe2c55;color:#fff;border:0;border-radius:6px;padding:12px 22px;font-size:1rem;cursor:pointer;text-decoration:none;display:inline-block}code{background:#f3f3f3;padding:1px 5px;border-radius:4px}.card{border:1px solid #ddd;border-radius:10px;padding:16px;margin:16px 0}.row{display:flex;gap:16px;align-items:center}.row img{width:72px;height:72px;border-radius:50%}.stats{display:flex;gap:12px;flex-wrap:wrap}.stat{flex:1;min-width:120px;background:#f7f7f7;border-radius:8px;padding:10px;text-align:center}.stat b{display:block;font-size:1.3rem}table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;padding:6px;border-bottom:1px solid #eee}td img{width:48px;height:64px;object-fit:cover;border-radius:4px}.err{color:#b00020}footer{margin-top:40px;font-size:.85rem;color:#666}</style></head><body>
+<h1>Diabolical Bastards Analytics</h1>
+<p class="sub">A private analytics tool operated by Mobile Marketers on behalf of Diabolical Bastards.</p>
+<div class="card">
+<p>Sign in with the Diabolical Bastards TikTok account to view its profile, audience statistics, and published videos. This tool only reads data. It never posts or changes anything.</p>
+<p>Permissions requested:</p>
+<ul>
+<li><code>user.info.basic</code>: display name and avatar</li>
+<li><code>user.info.profile</code>: bio, verified status, profile link</li>
+<li><code>user.info.stats</code>: follower, following, like, and video counts</li>
+<li><code>video.list</code>: the account's published videos and their performance numbers</li>
+</ul>
+<button id="login">Login with TikTok</button>
+<p id="msg" class="err"></p>
+</div>
+<footer><a href="terms.html">Terms of Service</a> | <a href="privacy.html">Privacy Policy</a></footer>
+<script>
+const HELPER = "http://localhost:8765";
+document.getElementById("login").addEventListener("click", async () => {
+  const msg = document.getElementById("msg");
+  msg.textContent = "";
+  try {
+    const r = await fetch(HELPER + "/login-url");
+    const j = await r.json();
+    window.location.href = j.url;
+  } catch (e) {
+    msg.textContent = "Could not reach the local helper. Start it and try again.";
+  }
+});
+</script>
+</body></html>
